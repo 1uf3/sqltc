@@ -34,7 +34,7 @@ sqltc -file ../create_table.sql
 
 Response
 ```
-[{"Name":"name","Type":"VARCHAR","IsNULL":true},{"Name":"info","Type":"VARCHAR","IsNULL":true}]
+[{"Name":"name","Type":"VARCHAR","IsNULL":false},{"Name":"info","Type":"VARCHAR","IsNULL":false}]
 ```
 
 ### License 

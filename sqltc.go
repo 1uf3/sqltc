@@ -102,6 +102,7 @@ func Convert(query string) Columns {
 	sc := strings.Split(query, "  ")
 	for _, v := range sc {
 		column := Column{}
+		column.IsNULL = true
 		column.Name = strings.Split(v, " ")[0]
 		for _, token := range tokens {
 			if !strings.Contains(v, token) {
@@ -109,7 +110,7 @@ func Convert(query string) Columns {
 			}
 			column.Type = token
 			if strings.Contains(v, "NOT NULL") {
-				column.IsNULL = true
+				column.IsNULL = false
 			}
 		}
 		if column.Type == "" {
