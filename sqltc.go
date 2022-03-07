@@ -18,8 +18,99 @@ type Column struct {
 
 type Columns []Column
 
-func (s *SqlFile) Convert(query string) error {
+const (
+	// number type
+	BIT = iota
+	TINYINT
+	BOOL
+	BOOLEAN
+	SMALLINT
+	MEDIUMINT
+	INT
+	INTEGER
+	BIGINT
+	DECIMAL
+	DEC
+	FLOAT
+	DOUBLE
 
+	// date
+	DATE
+	DATETIME
+	TIMESTAMP
+	TIME
+	YEAR
+
+	// string type
+	CHAR
+	VARCHAR
+	BINARY
+	VARBINARY
+	TINYBLOB
+	TINYTEXT
+	BLOB
+	TEXT
+	MEDIUMBLOB
+	MEDIUMTEXT
+	LONGBLOB
+	LONGTEXT
+	ENUM
+	SET
+)
+
+var tokens = [...]string{
+	BIT:       "BIT",
+	TINYINT:   "TINYINT",
+	BOOL:      "BOOL",
+	BOOLEAN:   "BOOLEAN",
+	SMALLINT:  "SMALLINT",
+	MEDIUMINT: "MEDIUMINT",
+	INT:       "INT",
+	INTEGER:   "INTEGGER",
+	BIGINT:    "BIGINT",
+	DECIMAL:   "DECIMAL",
+	DEC:       "DEC",
+	FLOAT:     "FLOAT",
+	DOUBLE:    "DOUBLE",
+
+	// date
+	DATE:      "DATE",
+	DATETIME:  "DATETIME",
+	TIMESTAMP: "TIMESTAMP",
+	TIME:      "TIME",
+	YEAR:      "YEAR",
+
+	// string type
+	CHAR:       "CHAR",
+	VARCHAR:    "VARCHAR",
+	BINARY:     "BINARY",
+	VARBINARY:  "VARBINARY",
+	TINYBLOB:   "TINYBLOB",
+	TINYTEXT:   "TINYTEXT",
+	BLOB:       "BLOB",
+	TEXT:       "TEXT",
+	MEDIUMBLOB: "MEDIUMBLOB",
+	MEDIUMTEXT: "MEDIUMTEXT",
+	LONGBLOB:   "LONGBLOB",
+	LONGTEXT:   "LONGTEXT",
+	ENUM:       "ENUM",
+	SET:        "SET",
+}
+
+func (s *SqlFile) Convert(query string) error {
+	columns := Columns{}
+	sc := strings.Split(query, "  ")
+	for i, v := range sc {
+		columns[i].Name = strings.Split(v, " ")[0]
+		for _, token := range tokens {
+			if strings.Contains(v, token) {
+				columns[i].Type = token
+			}
+			if strings.Contains(v, "NOT NULL") {
+				columns[i].IsNULL = true
+			}
+		}
+	}
 	return nil
 }
 
