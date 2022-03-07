@@ -1,4 +1,4 @@
-package sqlcheck
+package sqltc
 
 import (
 	"io/ioutil"

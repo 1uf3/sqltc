@@ -1,3 +1,3 @@
-## mysqlcheck - a simple sql file checker
+## sqltc - a simple sql file type checker
 
 
