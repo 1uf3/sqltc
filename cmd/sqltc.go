@@ -13,7 +13,9 @@ func main() {
 	file := flag.String("file", "sample.sql", "SQL file")
 	flag.Parse()
 	sqlfile := sqltc.SqlFile{}
-	sqlfile.File(*file)
+	if err := sqlfile.File(*file); err != nil {
+		log.Fatalf("sqlfile.File Error: %s", err)
+	}
 	columns := sqltc.Columns{}
 	for _, query := range sqlfile.Queries {
 		columns = sqltc.Convert(query)
