@@ -20,12 +20,22 @@ func Test_Convert(t *testing.T) {
 		args args
 	}{
 		{
-			name: "Include Comment",
+			name: "convert",
 			args: args{
 				i: "CREATE TABLE IF NOT EXISTS test.testdata(  name VARCHAR(255) NOT NULL,  info VARCHAR(200) NOT NULL,  PRIMARY KEY (name))",
 				want: Columns{
+					{Name: "name", Type: "VARCHAR", IsNULL: false},
+					{Name: "info", Type: "VARCHAR", IsNULL: false},
+				},
+			},
+		},
+		{
+			name: "convert2",
+			args: args{
+				i: "CREATE TABLE IF NOT EXISTS test.testdata(  name VARCHAR(255) ,  info VARCHAR(200) NOT NULL,  PRIMARY KEY (name))",
+				want: Columns{
 					{Name: "name", Type: "VARCHAR", IsNULL: true},
-					{Name: "info", Type: "VARCHAR", IsNULL: true},
+					{Name: "info", Type: "VARCHAR", IsNULL: false},
 				},
 			},
 		},
