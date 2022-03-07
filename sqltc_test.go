@@ -154,7 +154,7 @@ func Test_File(t *testing.T) {
 		t.Run(fmt.Sprint(n), func(t *testing.T) {
 			t.Parallel()
 			s := SqlFile{}
-			s.File(tt.args.i)
+			_ = s.File(tt.args.i)
 			got := s.queries
 			if diff := cmp.Diff(tt.args.want, got); diff != "" {
 				t.Errorf("File does not notice content: (+got -want)\n%s", diff)
@@ -192,7 +192,7 @@ func Test_Directory(t *testing.T) {
 		t.Run(fmt.Sprint(n), func(t *testing.T) {
 			t.Parallel()
 			s := SqlFile{}
-			s.Directory(tt.args.i)
+			_ = s.Directory(tt.args.i)
 			got := s.queries
 			if diff := cmp.Diff(tt.args.want, got); diff != "" {
 				t.Errorf("Directory does not notice content: (+got -want)\n%s", diff)
