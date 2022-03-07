@@ -36,7 +36,7 @@ func Test_Convert(t *testing.T) {
 		n := n
 		t.Run(fmt.Sprint(n), func(t *testing.T) {
 			t.Parallel()
-			got, _ := Convert(tt.args.i)
+			got := Convert(tt.args.i)
 			if diff := cmp.Diff(tt.args.want, got); diff != "" {
 				t.Errorf("Convert does not notice content: (-got +want)\n%s", diff)
 			}
@@ -192,7 +192,7 @@ func Test_File(t *testing.T) {
 			t.Parallel()
 			s := SqlFile{}
 			_ = s.File(tt.args.i)
-			got := s.queries
+			got := s.Queries
 			if diff := cmp.Diff(tt.args.want, got); diff != "" {
 				t.Errorf("File does not notice content: (+got -want)\n%s", diff)
 			}
@@ -230,7 +230,7 @@ func Test_Directory(t *testing.T) {
 			t.Parallel()
 			s := SqlFile{}
 			_ = s.Directory(tt.args.i)
-			got := s.queries
+			got := s.Queries
 			if diff := cmp.Diff(tt.args.want, got); diff != "" {
 				t.Errorf("Directory does not notice content: (+got -want)\n%s", diff)
 			}

@@ -7,7 +7,7 @@ import (
 
 type SqlFile struct {
 	files   []string
-	queries []string
+	Queries []string
 }
 
 type Column struct {
@@ -97,7 +97,7 @@ var tokens = [...]string{
 	SET:        "SET",
 }
 
-func Convert(query string) (Columns, error) {
+func Convert(query string) Columns {
 	columns := Columns{}
 	sc := strings.Split(query, "  ")
 	for _, v := range sc {
@@ -117,7 +117,7 @@ func Convert(query string) (Columns, error) {
 		}
 		columns = append(columns, column)
 	}
-	return columns, nil
+	return columns
 }
 
 func (s *SqlFile) Directory(dir string) error {
@@ -164,7 +164,7 @@ func (s *SqlFile) File(file string) error {
 	}
 
 	s.files = append(s.files, file)
-	s.queries = append(s.queries, queries...)
+	s.Queries = append(s.Queries, queries...)
 
 	return nil
 }
