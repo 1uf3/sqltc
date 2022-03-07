@@ -20,7 +20,7 @@ go install github.com/lufeee/sqltc/cmd/sqltc
 -- +migrate Up
 CREATE DATABASE IF NOT EXISTS test;
 CREATE TABLE IF NOT EXISTS test.testdata(
-  name VARCHAR(255) NOT NULL,
+  name VARCHAR(255),
   info VARCHAR(200) NOT NULL,
   PRIMARY KEY (name)
 );
@@ -29,12 +29,12 @@ CREATE TABLE IF NOT EXISTS test.testdata(
 
 Execute
 ```sh
-sqltc -file ../create_table.sql
+sqltc -file sample.sql
 ```
 
 Response
 ```
-[{"Name":"name","Type":"VARCHAR","IsNULL":false},{"Name":"info","Type":"VARCHAR","IsNULL":false}]
+[{"Name":"name","Type":"VARCHAR","IsNULL":true},{"Name":"info","Type":"VARCHAR","IsNULL":false}]
 ```
 
 ### License 
