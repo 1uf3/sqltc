@@ -7,6 +7,43 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
+func Test_Convert(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		i    string
+		want Columns
+	}
+
+	cases := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "Include Comment",
+			args: args{
+				i: "CREATE TABLE IF NOT EXISTS test.testdata(  name VARCHAR(255) NOT NULL,  info VARCHAR(200) NOT NULL,  PRIMARY KEY (name))",
+				want: Columns{
+					{Name: "name", Type: "VARCHAR", IsNULL: true},
+					{Name: "info", Type: "VARCHAR", IsNULL: true},
+				},
+			},
+		},
+	}
+
+	for n, tt := range cases {
+		tt := tt
+		n := n
+		t.Run(fmt.Sprint(n), func(t *testing.T) {
+			t.Parallel()
+			got, _ := Convert(tt.args.i)
+			if diff := cmp.Diff(tt.args.want, got); diff != "" {
+				t.Errorf("Convert does not notice content: (-got +want)\n%s", diff)
+			}
+		})
+	}
+}
+
 func Test_excludeComment(t *testing.T) {
 	t.Parallel()
 

@@ -112,6 +112,9 @@ func Convert(query string) (Columns, error) {
 				column.IsNULL = true
 			}
 		}
+		if column.Type == "" {
+			continue
+		}
 		columns = append(columns, column)
 	}
 	return columns, nil
