@@ -97,21 +97,24 @@ var tokens = [...]string{
 	SET:        "SET",
 }
 
-func (s *SqlFile) Convert(query string) error {
+func Convert(query string) (Columns, error) {
 	columns := Columns{}
 	sc := strings.Split(query, "  ")
-	for i, v := range sc {
-		columns[i].Name = strings.Split(v, " ")[0]
+	for _, v := range sc {
+		column := Column{}
+		column.Name = strings.Split(v, " ")[0]
 		for _, token := range tokens {
-			if strings.Contains(v, token) {
-				columns[i].Type = token
+			if !strings.Contains(v, token) {
+				continue
 			}
+			column.Type = token
 			if strings.Contains(v, "NOT NULL") {
-				columns[i].IsNULL = true
+				column.IsNULL = true
 			}
 		}
+		columns = append(columns, column)
 	}
-	return nil
+	return columns, nil
 }
 
 func (s *SqlFile) Directory(dir string) error {
