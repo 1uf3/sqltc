@@ -10,9 +10,9 @@ import (
 )
 
 func main() {
-	file := flag.String("file", "sample.sql", "SQL file")
+	file := flag.String("file", "sample.sql", "Pass the sql file to get variable name and type.")
 	flag.Parse()
-	sqlfile := sqltc.SqlFile{}
+	var sqlfile sqltc.SqlFile
 	if err := sqlfile.File(*file); err != nil {
 		log.Fatalf("sqlfile.File Error: %s", err)
 	}
